@@ -1,2 +1,20 @@
 <h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+ <%@my_range=(@date..@date.end_of_month) %>    
+<div class="container mt-5 text-center">
+   <a href='<%="#{index_path(date: @date-1.month)}"%>'>prev</a> 
+   <a href='<%="#{index_path(date: @date+1.month)}"%>'>next</a>
+    <h1><%=@date.strftime("%B %Y")%></h1>
+     <%@counter =0%>
+    <%@my_range.to_a.each do |d| %>
+     
+      <%if d!=Date.today%> 
+        <%=d.strftime("%d")%>
+      <%else%>
+        <span style="font-weight:bold;color: red;"><%=d.strftime("%d")%></span>
+      <% end %>
+
+      <% if @counter % 7 == 0%><br />
+      <% end %>
+     <%@counter=+1%> 
+    <% end %>
+</div>
