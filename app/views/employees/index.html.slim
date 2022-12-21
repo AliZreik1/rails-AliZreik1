@@ -1,0 +1,42 @@
+h1 = t(".all_employees")
+
+table.table
+ thead
+ 
+   tr
+      th = t('.table_header.employee_fname')
+      th = t('.table_header.employee_lname')
+      th = t('.table_header.employee_email')
+      th = t('.table_header.employee_birthday')
+      th = t('.table_header.employee_office')
+      th = t('.table_header.employee_tags')
+      th = t('.table_header.employee_comments')
+      th
+ tbody
+  - @employees.each do |employee|
+   tr
+   		td = employee.fname
+   		td = employee.lname
+   		td = employee.email
+   		td = employee.birthday
+        td 
+            - if employee.office
+                = link_to employee.office.name, office_path(employee.office)
+            - else
+                | -
+        td 
+            - employee.employee_tags.each do |tag|
+                .badge.bg-primary => tag.title 
+        td 
+            - employee.comments.each do |comment|
+                .badge.bg-primary => comment.text 
+        td 
+            a.btn.btn-primary<> href=employee_path(employee) show
+            a.btn.btn-warning<> href=edit_employee_path(employee) edit
+
+            a.btn.btn-danger<> href=employee_path(employee) data-method="delete" data-confirm="delete #{employee.name}?" DELETE!
+a.btn.btn-success<> href=new_employee_path style="float: right;" new employee
+    
+
+    
+    

@@ -1,0 +1,9 @@
+= simple_form_for @employee do |f|
+   = f.input :fname
+   = f.input :lname
+   = f.input :email
+   = f.input :birthday , disabled: disable_birthday 
+   = f.association :office, label_method: :name
+   = f.association :employee_tags, as: :check_boxes
+   hr
+   = f.button :submit, class:"btn-outline-#{bsstyle}"

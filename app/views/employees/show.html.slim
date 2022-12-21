@@ -1,0 +1,8 @@
+h1 Employee 
+=@employee.name
+
+.row
+  .col
+   = render '/comments/comments', thing: @employee	
+a.btn.btn-success>  href=edit_employee_path(@employee) edit
+a> href= employees_path back

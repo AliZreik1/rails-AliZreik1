@@ -1,0 +1,21 @@
+table.table
+ thead
+ tbody
+  - @employee_tags.each do |employee_tag|
+   
+   tr
+   		td = employee_tag.title
+        td 
+            - employee_tag.employees.each do |employee|
+                = employee.name
+        td 
+            a.btn.btn-primary<> href=employee_tag_path(employee_tag) show
+            a.btn.btn-warning<> href=edit_employee_tag_path(employee_tag) edit
+
+            a.btn.btn-danger<> href=employee_tag_path(employee_tag) data-method="delete" data-confirm="delete #{employee_tag}?" DELETE!
+
+a.btn.btn-success<> href=new_employee_tag_path style="float: right;" new employee_tag
+    
+
+    
+    
