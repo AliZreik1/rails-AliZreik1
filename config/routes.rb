@@ -7,12 +7,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "dashboard#index"
+
   resources :employees do
     resources :comments, only: [:create]
   end
+  get 'login' => "sessions#new"
+  post 'login' => "sessions#create"
+  delete 'logout' => "sessions#destroy"
+
   get '/locale/:locale' => "dashboard#switch_locale", as: 'switch_locale'
   resources :offices do
     resources :comments, only: [:create]
   end
-   
+  get 'say_something' => 'dashboard#say_something' 
 end

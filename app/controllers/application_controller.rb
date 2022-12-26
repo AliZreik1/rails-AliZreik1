@@ -11,4 +11,13 @@ class ApplicationController < ActionController::Base
 	 end
 	end
 	before_action :set_locale
+
+	def current_user
+		if session[:user_id]
+			@current_user ||= User.find(session[:user_id])
+		else
+			nil
+		end
+	end
+	helper_method :current_user
 end
