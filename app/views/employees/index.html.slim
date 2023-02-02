@@ -1,9 +1,12 @@
 h1 = t(".all_employees")
 
+ =pager 
+
 table.table
  thead
  
-   tr
+   tr 
+      th
       th = t('.table_header.employee_fname')
       th = t('.table_header.employee_lname')
       th = t('.table_header.employee_email')
@@ -15,7 +18,10 @@ table.table
  tbody
   - @employees.each do |employee|
    tr
-   		td = employee.fname
+   		td 
+           - if employee.avatar.present?
+                = image_tag employee.avatar.variant (:microthumb)
+        td = employee.fname
    		td = employee.lname
    		td = employee.email
    		td = employee.birthday

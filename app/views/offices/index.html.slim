@@ -1,21 +1,54 @@
-table.table
- thead
- tbody
-  - @offices.each do |office|
-   tr
-   		td = office.building
-   		td = office.number
-   		td = office.floor
-        td 
-            - office.comments.each do |comment|
-                .badge.bg-primary => comment.text 
-        td 
-            a.btn.btn-primary<> href=office_path(office) show
-            a.btn.btn-warning<> href=edit_office_path(office) edit
-            a>href=new_comment_path(commentable_id: office.id, commentable_type: office.class) Comment
-            a.btn.btn-danger<> href=office_path(office) data-method="delete" data-confirm="delete #{office.name}?" DELETE!
+h1 ALl Buros
 
-a.btn.btn-success<> href=new_office_path style="float: right;" new office
+turbo-frame#offices
+
+    =pager 
+
+    table.table
+     thead
+      tr  
+        th
+            -if @pager.sort== "building" && @pager.sort_direction =="asc"
+                | ^
+            -elsif @pager.sort == "building" && @pager.sort_direction == "desc"
+                | v   
+
+            a href=offices_path(sort: 'building', sort_direction: (@pager.sort_direction == 'asc' ? :desc : :asc))
+                = Office.human_attribute_name :building
+        th 
+            -if @pager.sort== "number" && @pager.sort_direction =="asc"
+                | ^
+            -elsif @pager.sort == "number" && @pager.sort_direction == "desc"
+                | v
+            a href=offices_path(sort: 'number',sort_direction: (@pager.sort_direction == 'asc' ? :desc : :asc))
+                = Office.human_attribute_name :number
+        th 
+            -if @pager.sort== "floor" && @pager.sort_direction =="asc"
+                | ^
+            -elsif @pager.sort == "floor" && @pager.sort_direction == "desc"
+                | v  
+            a href=offices_path(sort: 'floor',sort_direction: (@pager.sort_direction == 'asc' ? :desc : :asc))
+                = Office.human_attribute_name :floor
+          
+              
+     tbody
+      - @offices.each do |office|
+       tr
+       		td = office.building
+       		td = office.number
+       		td = office.floor
+            td 
+                - office.comments.each do |comment|
+                    .badge.bg-primary => comment.text 
+            td 
+                a.btn.btn-primary<> href=office_path(office) show
+                a.btn.btn-warning<> href=edit_office_path(office) edit
+                a>href=new_comment_path(commentable_id: office.id, commentable_type: office.class) Comment
+                a.btn.btn-danger<> href=office_path(office) data-method="delete" data-confirm="delete #{office.name}?" DELETE!
+
+    p There is #{Office.count} Buros!
+    a.btn.btn-success<> href=new_office_path style="float: right;" new office
+
     
 
     

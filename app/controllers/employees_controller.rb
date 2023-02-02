@@ -1,11 +1,12 @@
 class EmployeesController < ApplicationController
-	skip_before_action :verify_authenticity_token
+	include PaginateConcern
+	# skip_before_action :verify_authenticity_token
 	def index()
-		@employees = Employee.all
+		@employees = paginate Employee
 	end
 
 	private def employee_params
-		params.require(:employee).permit(:fname, :lname, :email, :birthday, :office_id, employee_tag_ids: [])
+		params.require(:employee).permit(:fname, :lname, :email, :birthday, :office_id, :avatar, employee_tag_ids: [])
 	end
 	
 	def create()
@@ -27,7 +28,7 @@ class EmployeesController < ApplicationController
 	def show()
 		@employee= Employee.find(params[:id])	 
 	end
-	def update()
+	def update()      
 		@employee= Employee.find(params[:id])
 		if @employee.update(employee_params)
 			redirect_to employees_path
@@ -43,5 +44,8 @@ class EmployeesController < ApplicationController
 		redirect_to employees_path	
 	end
 
-
+	# def picture
+	# 	@employee=Employee.find(params[:id])
+	# 	send_file @employee.picture_file, filename: @employee.picture, disposition: 'inline'
+	# end
 end

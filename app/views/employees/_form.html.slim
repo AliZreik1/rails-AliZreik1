@@ -1,7 +1,10 @@
 = simple_form_for @employee do |f|
+   / = f.input type="file" name="bildchen"
+   / = f.input :picture, as: :file   
    = f.input :fname
    = f.input :lname
    = f.input :email
+   = f.input :avatar
    = f.input :birthday , disabled: disable_birthday 
    = f.association :office, label_method: :name
    = f.association :employee_tags, as: :check_boxes

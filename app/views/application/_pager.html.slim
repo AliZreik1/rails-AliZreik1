@@ -1,0 +1,12 @@
+p 
+    | Page
+    - if @pager.page>1
+        a.btn.btn-primary<> href=send(path_name,page:@pager.page-1, pagesize: @pager.pagesize, sort: @pager.sort, sort_direction: @pager.sort_direction) class=("disabled" if @pager.page<1) <
+    =@pager.page
+    | from
+    =<>@pager.pages
+
+    form style= "display: inline-block;"
+     input name="page" value=@pager.page
+     button type="submit" GO 
+    a.btn.btn-primary<> href=send(path_name,page:@pager.page+1, pagesize:@pager.pagesize,sort: @pager.sort, sort_direction: @pager.sort_direction) class=("disabled" if (@pager.page>=@pager.pages))  >

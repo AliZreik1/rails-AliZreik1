@@ -11,5 +11,12 @@ module ApplicationHelper
   	else
   		I18n.l(t)
   	end
+
   end
+ def pager(path_name=nil)
+  if !path_name
+   path_name = "#{controller_name}_path" 
+ end
+  render 'pager', path_name: path_name
+ end 
 end

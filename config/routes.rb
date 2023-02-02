@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   resources :comments
   resources :employee_tags
   get 'dashboard/index'
@@ -9,7 +10,10 @@ Rails.application.routes.draw do
   root "dashboard#index"
 
   resources :employees do
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :index]
+    member do
+      get :picture
+    end
   end
   get 'login' => "sessions#new"
   post 'login' => "sessions#create"
@@ -17,7 +21,7 @@ Rails.application.routes.draw do
 
   get '/locale/:locale' => "dashboard#switch_locale", as: 'switch_locale'
   resources :offices do
-    resources :comments, only: [:create]
+    resources :comments, only: [:create,:index]
   end
   get 'say_something' => 'dashboard#say_something' 
 end

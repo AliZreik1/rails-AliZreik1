@@ -1,7 +1,9 @@
 class OfficesController < ApplicationController
+	include PaginateConcern
+
 	skip_before_action :verify_authenticity_token
 	def index()
-		@offices = Office.all
+		@offices = paginate Office.order(floor: :asc)	
 	end
 
 	private def office_params
